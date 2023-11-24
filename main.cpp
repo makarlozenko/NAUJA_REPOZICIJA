@@ -138,16 +138,16 @@ int main() {
                 for (int i=0; i < sKiekis; i++){
                     Studentas studentas;
                     string newName = baseVardas + to_string(i+1);
-                    studentas.var=newName;
+                    studentas.setVar(newName);
                     string newSurname = basePavarde + to_string(i+1);
-                    studentas.pav=newSurname;
+                    studentas.setPav(newSurname);
 
 
                     for(int k = 0; k < ndKiekis; k++) {
                         pazymysF = GetRandomPaz(1, 10);
-                        studentas.paz.push_back(pazymysF);
+                        studentas.getPaz().push_back(pazymysF);
                     }
-                    studentas.egz = GetRandomPaz(1, 10);
+                    studentas.getEgz(GetRandomPaz(1, 10));
 
                     studentai.push_back(studentas);
                 }
@@ -160,11 +160,11 @@ int main() {
                 nFailas << left << setw(20) << "Egzaminas"<<endl ;
 
                 for (Studentas student : studentai) {
-                    nFailas << left << setw(30) << student.var << left << setw(30)  << student.pav ;
-                    for (int paz : student.paz){
+                    nFailas << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() ;
+                    for (int paz : student.getPaz()){
                         nFailas << left << setw(5) << paz;
                     }
-                    nFailas << left << setw(20) << student.egz<<endl;
+                    nFailas << left << setw(20) << student.getEgz()<<endl;
                 }
                 nFailas.close();
 
@@ -195,9 +195,9 @@ int main() {
             bool naudotiMediana;
             for (int m = 0; m < eil-1; m++) {
                 naudotiMediana=1;
-                studentai[m].rezm = skaiciuotiGalutiniBala(studentai[m], naudotiMediana);
+                studentai[m].setRezm(skaiciuotiGalutiniBala(studentai[m], naudotiMediana));
                 naudotiMediana=0;
-                studentai[m].rezv = skaiciuotiGalutiniBala(studentai[m], naudotiMediana);
+                studentai[m].setRezv(skaiciuotiGalutiniBala(studentai[m], naudotiMediana));
             }
             spausdintiDuomenis(studentai, naudotiMediana,naudotiFaila);
         }
@@ -263,11 +263,15 @@ int main() {
         vector <Studentas> studentai(studentuSkaicius);
 
         for (int i = 0; i < studentuSkaicius; i++) {
+            string v;
             cout << "Iveskite " << i + 1 << " studento varda: ";
-            cin >> studentai[i].var;
+            cin >> v;
+            studentai[i].setVar(v);
 
+            string p;
             cout << "Iveskite " << i + 1 << " studento pavarde: ";
-            cin >> studentai[i].pav;
+            cin >> p;
+            studentai[i].setPav(p);
 
             if (generuotiPaz==0){
                  cout << "Iveskite " << i + 1 << " studento namu darbu rezultatus (baigti su -1): ";
@@ -281,7 +285,7 @@ int main() {
                         } else if (pazymys == -1) {
                             break;
                         } else {
-                            studentai[i].paz.push_back(pazymys);
+                            studentai[i].getPaz().push_back(pazymys);
                         }
                     }catch (invalid_argument e){
                         cerr << e.what() << endl;
@@ -293,10 +297,12 @@ int main() {
 
                 while (true) {
                     try{
+                        int eg;
                         cout << "Iveskite " << i + 1 << " studento egzamino rezultata: ";
-                        cin >> studentai[i].egz;
+                        cin >> eg;
+                        studentai[i].setEgz(eg);
 
-                        if (cin.fail() || studentai[i].egz<1 ||studentai[i].egz>10) {
+                        if (cin.fail() || eg<1 ||eg>10) {
                             throw invalid_argument( "Nevalidus rezultatas. Prasome ivesti pazymi.");
                         } else {
                             break;
@@ -334,15 +340,15 @@ int main() {
                 cout << "Atsitiktinai sugeneruoti " << i + 1 << " studento namu darbu pazymiai:" ;
                 for(int k = 0; k < ndkiekis; k++) {
                     pazymys = GetRandomPaz(1, 10);
-                    studentai[i].paz.push_back(pazymys);
+                    studentai[i].getPaz().push_back(pazymys);
                     cout << pazymys << " ";
                 }
                 cout << endl;
-                studentai[i].egz = GetRandomPaz(1, 10);
-                cout << "Egzaminas: " << studentai[i].egz <<endl;
+                studentai[i].setEgz(GetRandomPaz(1, 10));
+                cout << "Egzaminas: " << studentai[i].getEgz() <<endl;
 
             }
-            studentai[i].rez = skaiciuotiGalutiniBala(studentai[i], naudotiMediana);
+            studentai[i].setRez(skaiciuotiGalutiniBala(studentai[i], naudotiMediana));
         }
         spausdintiDuomenis(studentai, naudotiMediana,naudotiFaila);
     }

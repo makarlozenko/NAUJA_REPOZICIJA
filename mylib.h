@@ -51,6 +51,8 @@ public:
     Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
         : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
+    ~Studentas() {}
+
     string getVar() const { return var; }
     string getPav() const { return pav; }
     string getKategorija() const { return kategorija; }
