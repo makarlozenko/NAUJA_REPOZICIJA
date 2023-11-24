@@ -72,6 +72,8 @@ int main() {
 
                 cout << "Iveskite seno failo pavadinima: ";
                 cin >> naujasFailas;
+
+
             } else {
                 cout << "Iveskite naujo failo pavadinima: ";
                 cin >> naujasFailas;
@@ -101,11 +103,28 @@ int main() {
                 if (checkFile(naujasFailas+to_string(t)+".txt")){
                     string egzfailas = naujasFailas+to_string(t)+".txt";
                     cout << "Failas jau egzistuoja"<<endl;
+                    int strategija;
+                    while(true){
+                        try{
+                            cout << "Kokia strategija naudosime: 0 - pradine, 1 - du konteineriai, 2 - vienas konteineris, 3 - vienas konteineris patobulintas: ";;
+                            cin >> strategija;
+
+                            if(cin.fail() || (strategija != 0 && strategija != 1 && strategija != 2 && strategija != 3)){
+                                throw invalid_argument("Nevalidus pasirinkimas. Prasome ivesti teisinga skaiciu.");
+                            }else{
+                                break;
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            cin.clear();
+                            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                        }
+                    }
 
                     for (int t=1; t<=testuSk; t++){
                         auto end = high_resolution_clock::now();
                         duration<double> diff = start-start;
-                        rusiuotiDuomenisIsEgzistFailo(egzfailas, sKiekis,  diff, t, suma, rusiuoti, sumaNusk,sumaRus,sumaKiet,sumaVarg);
+                        rusiuotiDuomenisIsEgzistFailo(egzfailas, sKiekis,  diff, t, suma, rusiuoti, sumaNusk,sumaRus,sumaKiet,sumaVarg,strategija);
                     }
                     break;
                 }else{

@@ -39,30 +39,52 @@ using std::back_inserter;
 
 using namespace std::chrono;
 
+class Studentas {
 
-struct Studentas{
+private:
     string var, pav, kategorija;
-    vector <int> paz;
+    vector<int> paz;
     int egz;
     float rez, rezv, rezm;
+public:
+    Studentas() : egz(0), rez(0), rezv(0), rezm(0) {}
+    Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
+        : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
+
+    string getVar() const { return var; }
+    string getPav() const { return pav; }
+    string getKategorija() const { return kategorija; }
+    vector<int> getPaz() const { return paz; }
+    int getEgz() const { return egz; }
+    float getRez() const { return rez; }
+    float getRezV() const { return rezv; }
+    float getRezM() const { return rezm; }
+
+    void setVar(const string& v) { var = v; }
+    void setPav(const string& p) { pav = p; }
+    void setKategorija(const string& kat) { kategorija = kat; }
+    void setPaz(const vector<int>& pazymiai) { paz = pazymiai; }
+    void setEgz(int e) { egz = e; }
+    void setRez(float r) { rez = r; }
+    void setRezV(float rv) { rezv = rv; }
+    void setRezM(float rm) { rezm = rm; }
+
+    float vidurkis(vector<int> pazymiai);
+    float mediana(vector<int> pazymiai);
+    float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
+    int GetRandomPaz(int minimum, int maximum);
+    int kiekEiluciu(string failoPavadinimas);
+    int kiekStulp(string failoPavadinimas);
+    void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);
+    bool palygStudentByKat(Studentas a, Studentas b);
+    void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
+    void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg, int strategija);
+    bool palygStudentByVar(Studentas a, Studentas b);
+    bool palygStudentByVar(Studentas a, Studentas b);
+    void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
+    bool checkFile(string file_name);
+    bool maziau5(const Studentas& student);
+    bool daugiau5(const Studentas& student);
+
 };
-
-
-float vidurkis(vector<int> pazymiai);
-float mediana(vector<int> pazymiai);
-float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
-int GetRandomPaz(int minimum, int maximum);
-int kiekEiluciu(string failoPavadinimas);
-int kiekStulp(string failoPavadinimas);
-void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);
-bool palygStudentByKat(Studentas a, Studentas b);
-void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
-void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
-bool palygStudentByVar(Studentas a, Studentas b);
-bool palygStudentByVar(Studentas a, Studentas b);
-void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
-bool checkFile(string file_name);
-bool maziau5(const Studentas& student);
-bool daugiau5(const Studentas& student);
-
 #endif // MYLIB_H_INCLUDED

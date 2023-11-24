@@ -238,28 +238,7 @@ bool daugiau5(const Studentas& student) {
             return student.rezv >= 5.0;
         }
 
-void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg){
-
-    int strategija;
-        while(true){
-            try{
-                cout << "Kokia strategija naudosime: 0 - pradine, 1 - du konteineriai, 2 - vienas konteineris, 3 - vienas konteineris patobulintas: ";;
-                cin >> strategija;
-
-                if(cin.fail() || (strategija != 0 && strategija != 1 && strategija != 2 && strategija != 3)){
-                    throw invalid_argument("Nevalidus pasirinkimas. Prasome ivesti teisinga skaiciu.");
-                }else{
-                    break;
-                }
-            }catch (invalid_argument e){
-                cerr << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-        }
-
-
-
+void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg,int strategija){
     if (strategija==0){//------------------------------------------------------------------------------------------------------------------//
         vector<Studentas> studentai;
 
