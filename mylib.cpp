@@ -28,9 +28,9 @@ float mediana(vector<int> pazymiai) {
 
 float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana) {
     if (naudotiMediana==1){
-        return 0.4 * mediana(studentas.paz) + 0.6 * studentas.egz;
+        return 0.4 * mediana(studentas.getPaz()) + 0.6 * studentas.getEgz();
     }else{
-        return 0.4 * vidurkis(studentas.paz) + 0.6 * studentas.egz;
+        return 0.4 * vidurkis(studentas.getPaz()) + 0.6 * studentas.getEgz();
     }
 
 }
@@ -85,7 +85,7 @@ void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& stude
 
     for (int i=0; i<eil-1; i++){
         Studentas studentas;
-        failas >> studentas.var >> studentas.pav;
+        failas >> studentas.setVar >> studentas.setPav;
         int pazymys;
 
         for (int i = 0; i < stulp-3; i++){

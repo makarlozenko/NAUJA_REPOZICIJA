@@ -68,25 +68,35 @@ public:
     void setPaz(const vector<int>& pazymiai) { paz = pazymiai; }
     void setEgz(int e) { egz = e; }
     void setRez(float r) { rez = r; }
-    void setRezV(float rv) { rezv = rv; }
-    void setRezM(float rm) { rezm = rm; }
+    void setRezv(float rv) { rezv = rv; }
+    void setRezm(float rm) { rezm = rm; }
 
-    float vidurkis(vector<int> pazymiai);
+
+
+};
+
+float vidurkis(vector<int> pazymiai);
     float mediana(vector<int> pazymiai);
     float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
-    int GetRandomPaz(int minimum, int maximum);
-    int kiekEiluciu(string failoPavadinimas);
-    int kiekStulp(string failoPavadinimas);
-    void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);
+
+
     bool palygStudentByKat(Studentas a, Studentas b);
-    void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
-    void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg, int strategija);
     bool palygStudentByVar(Studentas a, Studentas b);
     bool palygStudentByVar(Studentas a, Studentas b);
     void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
-    bool checkFile(string file_name);
+
     bool maziau5(const Studentas& student);
     bool daugiau5(const Studentas& student);
 
-};
+
+
+void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
+void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg, int strategija);
+void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);
+int kiekEiluciu(string failoPavadinimas);
+int kiekStulp(string failoPavadinimas);
+int GetRandomPaz(int minimum, int maximum);
+bool checkFile(string file_name);
+
+
 #endif // MYLIB_H_INCLUDED

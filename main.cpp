@@ -147,7 +147,8 @@ int main() {
                         pazymysF = GetRandomPaz(1, 10);
                         studentas.getPaz().push_back(pazymysF);
                     }
-                    studentas.getEgz(GetRandomPaz(1, 10));
+                    int egz = GetRandomPaz(1, 10);
+                    studentas.setEgz(egz);
 
                     studentai.push_back(studentas);
                 }
@@ -194,12 +195,12 @@ int main() {
             int eil=kiekEiluciu(failoPavadinimas);
             bool naudotiMediana;
             for (int m = 0; m < eil-1; m++) {
-                naudotiMediana=1;
-                studentai[m].setRezm(skaiciuotiGalutiniBala(studentai[m], naudotiMediana));
-                naudotiMediana=0;
-                studentai[m].setRezv(skaiciuotiGalutiniBala(studentai[m], naudotiMediana));
+                double gp=skaiciuotiGalutiniBala(studentai[m], 1);
+                studentai[m].setRezm(gp);
+                double gp1=skaiciuotiGalutiniBala(studentai[m], 0);
+                studentai[m].setRezv(gp1);
             }
-            spausdintiDuomenis(studentai, naudotiMediana,naudotiFaila);
+            spausdintiDuomenis(studentai,naudotiMediana,naudotiFaila);
         }
 
 
