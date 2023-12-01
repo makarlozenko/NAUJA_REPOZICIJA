@@ -84,35 +84,37 @@ void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& stude
     int eil=kiekEiluciu(failoPavadinimas);
 
     for (int i=0; i<eil-1; i++){
-        Studentas studentas;
-        failas >> studentas.setVar >> studentas.setPav;
-        int pazymys;
+        string vard, pavd;
+        failas >> vard >> pavd;
+        int pazymys, egzas;
+        vector<int> pazym;
 
         for (int i = 0; i < stulp-3; i++){
             failas >> pazymys;
             if (pazymys>0 && pazymys<11) {
-                studentas.paz.push_back(pazymys);
+                pazym.push_back(pazymys);
             }else{
                 cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
             }
         }
 
-        failas >> studentas.egz;
+        failas >> egzas;
+        Studentas studentas(vard,pavd,0,pazym,egzas);
         studentai.push_back(studentas);
     }
     failas.close();
 }
 
-bool palygStudentByKat(Studentas a, Studentas b) {
-    return a.kategorija < b.kategorija;
+bool palygStudentByKat(const Studentas& a, const Studentas& b) {
+    return a.getKategorija() < b.getKategorija();
 }
 
-bool palygStudentByPav(Studentas a, Studentas b) {
-    return a.pav < b.pav;
+bool palygStudentByPav(const Studentas& a, const Studentas& b) {
+    return a.getPav() < b.getPav();
 }
 
-bool palygStudentByGp(Studentas a, Studentas b) {
-    return a.rezv < b.rezv;
+bool palygStudentByGp(const Studentas& a, const Studentas& b) {
+    return a.getRezv() < b.getRezv();
 }
 
 
@@ -134,32 +136,36 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
     int eil=kiekEiluciu(failoPavadinimas+to_string(t)+".txt");
 
     for (int i=0; i<eil-2; i++){
-        Studentas studentas;
-        failas >> studentas.var >> studentas.pav;
-        int pazymys;
+
+        string vard, pavd;
+        failas >> vard >> pavd;
+        int pazymys, egzas;
+        vector<int> pazym;
 
         for (int k = 0; k < stulp-3; k++){
             failas >> pazymys;
             if (pazymys>0 && pazymys<11) {
-                studentas.paz.push_back(pazymys);
+                pazym.push_back(pazymys);
             }else{
                 cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
             }
         }
 
-        failas >> studentas.egz;
+        failas >> egzas;
+        Studentas studentas(vard,pavd,0,pazym,egzas);
 
-        bool naudotiMediana=1;
-        studentas.rezm = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+        double rezasm=skaiciuotiGalutiniBala(studentas, 1);
+        studentas.setRezm(rezasm);
 
-        naudotiMediana=0;
-        studentas.rezv = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+        double rezasv=skaiciuotiGalutiniBala(studentas, 0);
+        studentas.setRezv(rezasv);
 
-        if (studentas.rezv < 5.0) {
-            studentas.kategorija = "Vargsiukas";
+        if (rezasv < 5.0) {
+            studentas.setKategorija("Vargsiukas");
         } else {
-            studentas.kategorija = "Kietakis";
+            studentas.setKategorija("Kietakis");
         }
+
         studentai.push_back(studentas);
     }
 
@@ -193,8 +199,8 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
     ofstream failasRusK(failoPavadinimas+to_string(t)+"Kietakiai.txt");
     failasRusK <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
     for (Studentas student : studentai) {
-        if (student.rezv > 5.0) {
-            failasRusK << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
+        if (student.getRezv() > 5.0) {
+            failasRusK << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
         }else{
             continue;
         }
@@ -211,8 +217,8 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
     ofstream failasRusV(failoPavadinimas+to_string(t)+"Vargsiukai.txt");
     failasRusV <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
     for (Studentas student : studentai) {
-        if (student.rezv < 5.0) {
-            failasRusV << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
+        if (student.getRezv() < 5.0) {
+            failasRusK << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
         }else{
             continue;
         }
@@ -232,10 +238,10 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
 }
 
  bool maziau5(const Studentas& student) {
-            return student.rezv < 5.0;
+            return student.getRezv() < 5.0;
         }
 bool daugiau5(const Studentas& student) {
-            return student.rezv >= 5.0;
+            return student.getRezv() >= 5.0;
         }
 
 void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg,int strategija){

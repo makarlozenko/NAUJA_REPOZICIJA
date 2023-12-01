@@ -59,8 +59,8 @@ public:
     vector<int> getPaz() const { return paz; }
     int getEgz() const { return egz; }
     float getRez() const { return rez; }
-    float getRezV() const { return rezv; }
-    float getRezM() const { return rezm; }
+    float getRezv() const { return rezv; }
+    float getRezm() const { return rezm; }
 
     void setVar(const string& v) { var = v; }
     void setPav(const string& p) { pav = p; }
