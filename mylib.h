@@ -70,26 +70,17 @@ public:
     void setRez(float r) { rez = r; }
     void setRezv(float rv) { rezv = rv; }
     void setRezm(float rm) { rezm = rm; }
-
-
-
 };
 
 float vidurkis(vector<int> pazymiai);
-    float mediana(vector<int> pazymiai);
-    float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
-
-
-    bool palygStudentByKat(Studentas a, Studentas b);
-    bool palygStudentByVar(Studentas a, Studentas b);
-    bool palygStudentByVar(Studentas a, Studentas b);
-    void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
-
-    bool maziau5(const Studentas& student);
-    bool daugiau5(const Studentas& student);
-
-
-
+float mediana(vector<int> pazymiai);
+float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
+bool palygStudentByKat(const Studentas& a, const Studentas& b);
+bool palygStudentByVar(const Studentas& a, const Studentas& b);
+bool palygStudentByVar(const Studentas& a, const Studentas& b);
+void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
+bool maziau5(const Studentas& student);
+bool daugiau5(const Studentas& student);
 void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
 void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg, int strategija);
 void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);

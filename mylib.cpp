@@ -99,7 +99,7 @@ void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& stude
         }
 
         failas >> egzas;
-        Studentas studentas(vard,pavd,0,pazym,egzas);
+        Studentas studentas(vard,pavd,"null",pazym,egzas);
         studentai.push_back(studentas);
     }
     failas.close();
@@ -152,7 +152,7 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
         }
 
         failas >> egzas;
-        Studentas studentas(vard,pavd,0,pazym,egzas);
+        Studentas studentas(vard,pavd,"null",pazym,egzas);
 
         double rezasm=skaiciuotiGalutiniBala(studentas, 1);
         studentas.setRezm(rezasm);
@@ -237,7 +237,7 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
     suma+=overall;
 }
 
- bool maziau5(const Studentas& student) {
+bool maziau5(const Studentas& student) {
             return student.getRezv() < 5.0;
         }
 bool daugiau5(const Studentas& student) {
@@ -278,7 +278,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         }
 
         failas >> egzas;
-        Studentas studentas(vard,pavd,0,pazym,egzas);
+        Studentas studentas(vard,pavd,"null",pazym,egzas);
 
         double rezasm=skaiciuotiGalutiniBala(studentas, 1);
         studentas.setRezm(rezasm);
@@ -396,7 +396,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
             }
 
             failas >> egzas;
-            Studentas studentas(vard,pavd,0,pazym,egzas);
+            Studentas studentas(vard,pavd,"null",pazym,egzas);
 
             double rezasm=skaiciuotiGalutiniBala(studentas, 1);
             studentas.setRezm(rezasm);
@@ -505,7 +505,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
             }
 
             failas >> egzas;
-            Studentas studentas(vard,pavd,0,pazym,egzas);
+            Studentas studentas(vard,pavd,"null",pazym,egzas);
 
             double rezasm=skaiciuotiGalutiniBala(studentas, 1);
             studentas.setRezm(rezasm);
@@ -618,7 +618,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
             }
 
             failas >> egzas;
-            Studentas studentas(vard,pavd,0,pazym,egzas);
+            Studentas studentas(vard,pavd,"null",pazym,egzas);
 
             double rezasm=skaiciuotiGalutiniBala(studentas, 1);
             studentas.setRezm(rezasm);
@@ -709,19 +709,19 @@ void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool n
         printf("%-25s%-25s%-20s%-20s%s\n", "Vardas", "Pavarde", "Galutinis(Vid.)", "Galutinis(Med.)", "Adresas");
         printf("---------------------------------------------------------------------------------------\n");
         for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%-20.2f%p\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rezv, studentas.rezm, &studentas);
+            printf("%-25s%-25s%-20.2f%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRezv(), studentas.getRezm(), &studentas);
         }
     } else if (naudotiMediana == 1) {
         printf("%-25s%-25s%-20s%-20s\n", "Vardas", "Pavarde", "Galutinis(Med.)", "Adresas");
         printf("--------------------------------------------------------------------------------------\n");
         for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%p\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rez, &studentas);
+            printf("%-25s%-25s%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRez(), &studentas);
         }
     } else {
         printf("%-25s%-25s%-20s%-20s\n", "Vardas", "Pavarde", "Galutinis(Vid.)", "Adresas");
         printf("--------------------------------------------------------------------------------------");
         for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%p\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rez, &studentas);
+            printf("%-25s%-25s%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRez(), &studentas);
         }
     }
 
