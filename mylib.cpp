@@ -218,7 +218,7 @@ void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, dura
     failasRusV <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
     for (Studentas student : studentai) {
         if (student.getRezv() < 5.0) {
-            failasRusK << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
+            failasRusV << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
         }else{
             continue;
         }
@@ -263,33 +263,36 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         sKiekis=eil-2;
 
         for (int i=0; i<eil-2; i++){
-            Studentas studentas;
-            failas >> studentas.var >> studentas.pav;
-            int pazymys;
+        string vard, pavd;
+        failas >> vard >> pavd;
+        int pazymys, egzas;
+        vector<int> pazym;
 
-            for (int k = 0; k < stulp-3; k++){
-                failas >> pazymys;
-                if (pazymys>0 && pazymys<11) {
-                    studentas.paz.push_back(pazymys);
-                }else{
-                    cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
-                }
+        for (int k = 0; k < stulp-3; k++){
+            failas >> pazymys;
+            if (pazymys>0 && pazymys<11) {
+                pazym.push_back(pazymys);
+            }else{
+                cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
             }
+        }
 
-            failas >> studentas.egz;
+        failas >> egzas;
+        Studentas studentas(vard,pavd,0,pazym,egzas);
 
-            bool naudotiMediana=1;
-            studentas.rezm = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+        double rezasm=skaiciuotiGalutiniBala(studentas, 1);
+        studentas.setRezm(rezasm);
 
-            naudotiMediana=0;
-            studentas.rezv = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+        double rezasv=skaiciuotiGalutiniBala(studentas, 0);
+        studentas.setRezv(rezasv);
 
-            if (studentas.rezv < 5.0) {
-                studentas.kategorija = "Vargsiukas";
-            } else {
-                studentas.kategorija = "Kietakis";
-            }
-            studentai.push_back(studentas);
+        if (rezasv < 5.0) {
+            studentas.setKategorija("Vargsiukas");
+        } else {
+            studentas.setKategorija("Kietakis");
+        }
+
+        studentai.push_back(studentas);
         }
 
         auto endS = high_resolution_clock::now();
@@ -321,8 +324,8 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         ofstream failasRusK(egzfailas+to_string(t)+"Kietakiai.txt");
         failasRusK <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
         for (Studentas student : studentai) {
-            if (student.kategorija == "Kietakis") {
-                failasRusK << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
+            if (student.getKategorija() == "Kietakis") {
+                failasRusK << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
             }else{
                 continue;
             }
@@ -339,8 +342,8 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         ofstream failasRusV(egzfailas+to_string(t)+"Vargsiukai.txt");
         failasRusV <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
         for (Studentas student : studentai) {
-            if (student.kategorija == "Vargsiukas") {
-                failasRusV << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
+            if (student.getKategorija() == "Vargsiukas") {
+                failasRusV << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;
             }else{
                 continue;
             }
@@ -378,26 +381,28 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         sKiekis=eil-2;
 
         for (int i=0; i<eil-2; i++){
-            Studentas studentas;
-            failas >> studentas.var >> studentas.pav;
-            int pazymys;
+            string vard, pavd;
+            failas >> vard >> pavd;
+            int pazymys, egzas;
+            vector<int> pazym;
 
             for (int k = 0; k < stulp-3; k++){
                 failas >> pazymys;
                 if (pazymys>0 && pazymys<11) {
-                    studentas.paz.push_back(pazymys);
+                    pazym.push_back(pazymys);
                 }else{
                     cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
                 }
             }
 
-            failas >> studentas.egz;
+            failas >> egzas;
+            Studentas studentas(vard,pavd,0,pazym,egzas);
 
-            bool naudotiMediana=1;
-            studentas.rezm = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+            double rezasm=skaiciuotiGalutiniBala(studentas, 1);
+            studentas.setRezm(rezasm);
 
-            naudotiMediana=0;
-            studentas.rezv = skaiciuotiGalutiniBala(studentas, naudotiMediana);
+            double rezasv=skaiciuotiGalutiniBala(studentas, 0);
+            studentas.setRezv(rezasv);
 
             studentai.push_back(studentas);
         }
@@ -420,7 +425,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         }
 
         for (Studentas student : studentai) {
-            if (student.rezv > 5.0) {
+            if (student.getRezv() > 5.0) {
                 kietakiai.push_back(student);
             }else{
                 vargsiukai.push_back(student);
@@ -439,8 +444,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         ofstream failasRusK(egzfailas+to_string(t)+"Kietakiai.txt");
         failasRusK <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
         for (Studentas student : kietakiai) {
-            failasRusK << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
-        }
+            failasRusK << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;        }
         failasRusK.close();
 
         auto endK = high_resolution_clock::now();
@@ -453,8 +457,7 @@ void rusiuotiDuomenisIsEgzistFailo(string egzfailas, int sKiekis, duration<doubl
         ofstream failasRusV(egzfailas+to_string(t)+"Vargsiukai.txt");
         failasRusV <<left << setw(30) << "Vardas"<< left << setw(30) << "Pavarde"<< left << setw(30) << "Galutinis vidurkis"<< left << setw(30) << "Galutine mediana"<< endl;
         for (Studentas student : vargsiukai) {
-            failasRusV << left << setw(30) << student.var << left << setw(30)  << student.pav << left << setw(30)  << student.rezv << left << setw(30)  << student.rezm << endl;
-        }
+            failasRusV << left << setw(30) << student.getVar() << left << setw(30)  << student.getPav() << left << setw(30)  << student.getRezv() << left << setw(30)  << student.getRezm() << endl;        }
         failasRusV.close();
 
         auto endV = high_resolution_clock::now();
