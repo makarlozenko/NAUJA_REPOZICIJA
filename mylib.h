@@ -70,6 +70,33 @@ public:
     void setRez(float r) { rez = r; }
     void setRezv(float rv) { rezv = rv; }
     void setRezm(float rm) { rezm = rm; }
+
+     //Copy Constructor
+    Studentas(const Studentas& other) {
+        var = other.var;
+        pav = other.pav;
+        kategorija = other.kategorija;
+        paz = other.paz;
+        egz = other.egz;
+        rez = other.rez;
+        rezv = other.rezv;
+        rezm = other.rezm;
+    }
+
+    //Copy Assignment Operator
+    Studentas& operator=(const Studentas& other) {
+        if (this != &other) {
+            var = other.var;
+            pav = other.pav;
+            kategorija = other.kategorija;
+            paz = other.paz;
+            egz = other.egz;
+            rez = other.rez;
+            rezv = other.rezv;
+            rezm = other.rezm;
+        }
+        return *this;
+    }
 };
 
 float vidurkis(vector<int> pazymiai);
