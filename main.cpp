@@ -205,25 +205,6 @@ int main() {
 
 
     }else{
-
-        bool naudotiMediana;
-        while (true) {
-            try{
-                cout << "Naudoti mediana ar vidurki (0 - vidurkis, 1 - mediana): ";
-                cin >> naudotiMediana;
-
-                if (cin.fail() || (naudotiMediana != 0 && naudotiMediana != 1)) {
-                    throw invalid_argument( "Nevalidus pasirinkimas. Prasome ivesti 0 arba 1.");
-                } else {
-                    break;
-                }
-            }catch (invalid_argument e){
-                cerr << e.what() << endl;
-                cin.clear();
-                cin.ignore(numeric_limits<streamsize>::max(), '\n');
-            }
-        }
-
         int studentuSkaicius;
         while (true) {
             try{
@@ -242,8 +223,28 @@ int main() {
             }
         }
 
+       bool naudotiMediana;
+        while (true) {
+            try{
+                cout << "Naudoti mediana ar vidurki (0 - vidurkis, 1 - mediana): ";
+                cin >> naudotiMediana;
 
-        bool generuotiPaz;
+                if (cin.fail() || (naudotiMediana != 0 && naudotiMediana != 1)) {
+                    throw invalid_argument( "Nevalidus pasirinkimas. Prasome ivesti 0 arba 1.");
+                } else {
+                    break;
+                }
+            }catch (invalid_argument e){
+                cerr << e.what() << endl;
+                cin.clear();
+                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            }
+        }
+
+
+
+
+        /* bool generuotiPaz;
         while(true){
         try{
             cout << "Sugeneruoti pazymius atsitiktinai(0 - NE, 1 - TAIP):";
@@ -351,8 +352,21 @@ int main() {
             }
             studentai[i].setRez(skaiciuotiGalutiniBala(studentai[i], naudotiMediana));
         }
-        spausdintiDuomenis(studentai, naudotiMediana,naudotiFaila);
-    }
+        spausdintiDuomenis(studentai, naudotiMediana,naudotiFaila);*/
+        vector<Studentas> studentai(studentuSkaicius);
+
+        for (int i = 0; i < studentuSkaicius; i++) {
+            cout << "Iveskite " << i + 1 << " studento duomenis:" << endl;
+
+            Studentas naujasStudentas;
+            cin >> naujasStudentas;
+
+            naujasStudentas.setRez(skaiciuotiGalutiniBala(naujasStudentas, naudotiMediana));
+            studentai[i] = naujasStudentas;
+        }
+
+        spausdintiDuomenis(studentai, naudotiMediana, naudotiFaila);
+
     return 0;
-}
+}}
 
