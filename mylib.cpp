@@ -701,31 +701,19 @@ bool palygStudentByVar(const Studentas& a, const Studentas& b) {
 }
 
 
-void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila) {
+void spausdintiDuomenis(vector<Studentas> studentai) {
     printf("\nStudentu duomenys:\n");
-    printf("---------------------------------------------------------------------------------------\n");
+    printf("---------------------------------------------------------------------------------------------------\n");
 
-    if (naudotiFaila == 0) {
-        printf("%-25s%-25s%-20s%-20s%s\n", "Vardas", "Pavarde", "Galutinis(Vid.)", "Galutinis(Med.)", "Adresas");
-        printf("---------------------------------------------------------------------------------------\n");
-        for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRezv(), studentas.getRezm(), &studentas);
-        }
-    } else if (naudotiMediana == 1) {
-        printf("%-25s%-25s%-20s%-20s\n", "Vardas", "Pavarde", "Galutinis(Med.)", "Adresas");
-        printf("--------------------------------------------------------------------------------------\n");
-        for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRez(), &studentas);
-        }
-    } else {
-        printf("%-25s%-25s%-20s%-20s\n", "Vardas", "Pavarde", "Galutinis(Vid.)", "Adresas");
-        printf("--------------------------------------------------------------------------------------");
-        for ( Studentas& studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%p\n", studentas.getVar().c_str(), studentas.getPav().c_str(), studentas.getRez(), &studentas);
-        }
-    }
 
-    printf("----------------------------------------------------------------------------------------\n");
+        printf("%-20s%-20s%-20s%-20s%s\n", "Vardas", "Pavarde", "Galutinis(Vid.)", "Galutinis(Med.)", "Adresas");
+        printf("---------------------------------------------------------------------------------------------------\n");
+        for ( Studentas& studentas : studentai) {
+            cout <<studentas;
+            printf("%p\n", &studentas);
+        }
+
+    printf("----------------------------------------------------------------------------------------------------\n");
 }
 
     bool checkFile(string file_name) {
