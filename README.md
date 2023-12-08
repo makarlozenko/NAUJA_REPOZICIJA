@@ -4,33 +4,14 @@ Sistemos informacija:
 |-------------------------------------------|-----|-------|
 | Intel(R) Core(TM) i5-10300H CPU @ 2.50GHz | 8GB | 512GB |
 
+#V1.2 versija 
+Buvo realizuota trijų metodų taisyklė:
 
+![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/09f1e7e4-9652-49a3-9bdb-09070030866c)
 
-# Class ir Struct palyginimas:
+Be to, perdengti įvesties ir išvesties metodai darbui su Studentų klasę:
 
-Struct versija:
-| Testavimas               |     1000000  |  10000000 |    1000000  |  10000000 |     1000000  |  10000000 |
-|--------------------------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| Flagas                   |     O1   |        O1 |     O2   |        O2 |     O3   |        O3 |
-| Failo   nuskaitymas      | 4.79932 s |  48.6585 s  |4.80397 s |  48.6153 s  |4.78155 s |   48.7204 s |
-| Funkcija sort            |7.9945 s | 97.0551 s |8.00243 s | 96.8543 ss |8.02969 s | 97.4663 s |
-| Išvedimas į   kietakius  | 2.03313 s  | 20.5126 s|2.03939 s  | 20.4697 s|2.05651 s  | 20.7823 s|
-| Išvedimas į   vargšiukus | 1.43782 s  | 14.6049 s |1.4427 s  | 14.4275 s |1.44295 s  |14.5723 s |
-| Bendras laikas           | 16.2648 s | 180.831 s| 16.2885 s | 180.367 s| 16.3107 s | 181.541 s|
-
-
-Class versija:
-| Testavimas               |     1000000  |  10000000 |    1000000  |  10000000 |     1000000  |  10000000 |
-|--------------------------|:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
-| Flagas                   |     O1   |        O1 |     O2   |        O2 |     O3   |        O3 |
-| Failo   nuskaitymas      | 5.09948 s |  53.1526 s  |5.09912 s |  52.9918 s  |5.10723 s |  52.7562 s  |
-| Funkcija sort            | 2.65163 s | 32.2622 s |2.63366 s| 32.1697 s |2.65099 s | 32.1096 s |
-| Išvedimas į   kietakius  | 2.65163 s  | 20.4744 s|2.02074 s | 19.877 s|2.00783 s  | 20.0985 s|
-| Išvedimas į   vargšiukus | 1.99254 s  | 14.2783 s | 1.42243 s  | 14.1774 s |1.41622 s  | 14.2417 s |
-| Bendras laikas           | 11.1666 s | 120.168 s| 11.1759 s | 119.216 s| 11.1823 s | 119.206 s|
-
-
-
+![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/68b4859b-8196-47b4-9437-3b573405f955)
 
 
 
