@@ -51,6 +51,7 @@ public:
     Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
         : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
+    //Destructor
     ~Studentas() {}
 
     string getVar() const { return var; }
@@ -99,123 +100,123 @@ public:
     }
 
 
+    //Isvesties operatorius
     friend  std::ostream& operator<<(std::ostream& os, const Studentas& student) {
-    os << student.getVar() << " " << student.getPav() << " " << student.getKategorija() << " ";
-    for (int pazymys : student.getPaz()) {
-        os << pazymys << " ";
+
+        os << std::left << std::setw(20) << student.getVar() << std::left << std::setw(20) << student.getPav();
+        os << std::left << std::setw(20) << student.getRezv()<<std::left << std::setw(20) << student.getRezm();
+
+        return os;
     }
-    os << student.getEgz() << " " << student.getRez() << " ";
-    return os;
-}
 
-
-
-
+    //Ivesties operatorius
     friend std::istream& operator>>(std::istream& is, Studentas& student) {
 
-    string v, p;
-    cout<<"Iveskite varda ir pavarde: ";
-    is >> v >> p;
-    student.setVar(v);
-    student.setPav(p);
+        string v, p;
+        cout<<"Iveskite varda ir pavarde: ";
+        is >> v >> p;
+        student.setVar(v);
+        student.setPav(p);
 
-    vector<int> pazymiai;
+        vector<int> pazymiai;
 
-    bool generuotiPaz;
-        while(true){
-        try{
-            cout << "Sugeneruoti pazymius atsitiktinai(0 - NE, 1 - TAIP):";
-            is >> generuotiPaz;
+        bool generuotiPaz;
+            while(true){
+            try{
+                cout << "Sugeneruoti pazymius atsitiktinai(0 - NE, 1 - TAIP):";
+                is >> generuotiPaz;
 
-            if(is.fail() || (generuotiPaz != 0 && generuotiPaz != 1)){
-                throw invalid_argument("Nevalidus pasirinkimas. Prasome ivesti 0 arba 1.");
-            }else{
-                break;
+                if(is.fail() || (generuotiPaz != 0 && generuotiPaz != 1)){
+                    throw invalid_argument("Nevalidus pasirinkimas. Prasome ivesti 0 arba 1.");
+                }else{
+                    break;
+                }
+            }catch (invalid_argument e){
+                cerr << e.what() << endl;
+                is.clear();
+                is.ignore(numeric_limits<streamsize>::max(), '\n');
             }
-        }catch (invalid_argument e){
-            cerr << e.what() << endl;
-            is.clear();
-            is.ignore(numeric_limits<streamsize>::max(), '\n');
         }
-    }
 
-            if (generuotiPaz==0){
-                 cout << "Iveskite studento namu darbu rezultatus (baigti su -1): ";
-                 while (true) {
-                    try{
-                        int pazymys;
-                        is >> pazymys;
+                if (generuotiPaz==0){
+                     cout << "Iveskite studento namu darbu rezultatus (baigti su -1): ";
+                     while (true) {
+                        try{
+                            int pazymys;
+                            is >> pazymys;
 
-                        if (is.fail() || pazymys<-1 ||pazymys>10) {
-                            throw invalid_argument( "Nevalidus pazymys. Prasome ivesti pazymius : ");
-                        } else if (pazymys == -1) {
-                            break;
-                        } else {
-                            student.getPaz().push_back(pazymys);
+                            if (is.fail() || pazymys<-1 ||pazymys>10) {
+                                throw invalid_argument( "Nevalidus pazymys. Prasome ivesti pazymius : ");
+                            } else if (pazymys == -1) {
+                                break;
+                            } else {
+                                pazymiai.push_back(pazymys);
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
                         }
-                    }catch (invalid_argument e){
-                        cerr << e.what() << endl;
-                        is.clear();
-                        is.ignore(numeric_limits<streamsize>::max(), '\n');
+                        student.setPaz(pazymiai);
                     }
-                }
 
 
-                while (true) {
-                    try{
-                        int eg;
-                        cout << "Iveskite studento egzamino rezultata: ";
-                        is >> eg;
-                        student.setEgz(eg);
+                    while (true) {
+                        try{
+                            int eg;
+                            cout << "Iveskite studento egzamino rezultata: ";
+                            is >> eg;
+                            student.setEgz(eg);
 
-                        if (is.fail() || eg<1 ||eg>10) {
-                            throw invalid_argument( "Nevalidus rezultatas. Prasome ivesti pazymi.");
-                        } else {
-                            break;
+                            if (is.fail() || eg<1 ||eg>10) {
+                                throw invalid_argument( "Nevalidus rezultatas. Prasome ivesti pazymi.");
+                            } else {
+                                break;
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
                         }
-                    }catch (invalid_argument e){
-                        cerr << e.what() << endl;
-                        is.clear();
-                        is.ignore(numeric_limits<streamsize>::max(), '\n');
                     }
-                }
 
 
 
-            }else{
-                srand(time(NULL));
-                int ndkiekis;
-                int pazymys;
-                while (true) {
-                    try{
-                        cout << "Kiek norite pazymiu? ";
-                        is >> ndkiekis;
+                }else{
+                    srand(time(NULL));
+                    int ndkiekis;
+                    int pazymys;
+                    while (true) {
+                        try{
+                            cout << "Kiek norite pazymiu? ";
+                            is >> ndkiekis;
 
-                        if (is.fail() || (ndkiekis<0)) {
-                            throw invalid_argument( "Nevalidus pasirinkimas. Prasome ivesti pazymiu kieki.");
-                        } else {
-                            break;
+                            if (is.fail() || (ndkiekis<0)) {
+                                throw invalid_argument( "Nevalidus pasirinkimas. Prasome ivesti pazymiu kieki.");
+                            } else {
+                                break;
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
                         }
-                    }catch (invalid_argument e){
-                        cerr << e.what() << endl;
-                        is.clear();
-                        is.ignore(numeric_limits<streamsize>::max(), '\n');
                     }
+
+                    cout << "Atsitiktinai sugeneruoti studento namu darbu pazymiai:" ;
+                    for(int k = 0; k < ndkiekis; k++) {
+                        pazymys = 1 + rand() % 10;
+                        pazymiai.push_back(pazymys);
+                        cout << pazymys << " ";
+                    }
+                    student.setPaz(pazymiai);
+                    cout << endl;
+                    student.setEgz(1 + rand() % 10);
+                    cout << "Egzaminas: " << student.getEgz() <<endl;
+
                 }
 
-                cout << "Atsitiktinai sugeneruoti studento namu darbu pazymiai:" ;
-                for(int k = 0; k < ndkiekis; k++) {
-                    pazymys = 1 + rand() % 10;
-                    student.getPaz().push_back(pazymys);
-                    cout << pazymys << " ";
-                }
-                cout << endl;
-                student.setEgz(1 + rand() % 10);
-                cout << "Egzaminas: " << student.getEgz() <<endl;
-
-            }
-
-    return is;
+        return is;
     }
 };
 
@@ -225,7 +226,7 @@ float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
 bool palygStudentByKat(const Studentas& a, const Studentas& b);
 bool palygStudentByVar(const Studentas& a, const Studentas& b);
 bool palygStudentByVar(const Studentas& a, const Studentas& b);
-void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila);
+void spausdintiDuomenis(vector<Studentas> studentai);
 bool maziau5(const Studentas& student);
 bool daugiau5(const Studentas& student);
 void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
