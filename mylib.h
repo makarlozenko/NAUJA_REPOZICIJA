@@ -10,6 +10,9 @@
 #include <time.h>
 #include <fstream>
 #include <sstream>
+#include <iomanip>
+#include <chrono>
+
 
 
 using std::cout;
@@ -20,157 +23,219 @@ using std::vector;
 using std::numeric_limits;
 using std::streamsize;
 using std::ifstream;
+using std::ofstream;
 using std::stringstream;
 using std::sort;
 using std::invalid_argument;
 using std::cerr;
+using std::to_string;
+using std::left;
+using std::setw;
+using std::ios;
+using std::remove_if;
+using std::remove_copy_if;
+using std::back_inserter;
 
 
-struct Studentas{
-    string var, pav;
-    vector <int> paz;
+using namespace std::chrono;
+
+class Studentas {
+
+private:
+    string var, pav, kategorija;
+    vector<int> paz;
     int egz;
     float rez, rezv, rezm;
-};
+public:
+    Studentas() : egz(0), rez(0), rezv(0), rezm(0) {}
+    Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
+        : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
+    //Destructor
+    ~Studentas() {}
 
-float vidurkis(vector<int> pazymiai) {
-    if (pazymiai.empty()) return 0.0f;
-    int suma = 0;
-    for (int pazymys : pazymiai) {
-        suma += pazymys;
+    string getVar() const { return var; }
+    string getPav() const { return pav; }
+    string getKategorija() const { return kategorija; }
+    vector<int> getPaz() const { return paz; }
+    int getEgz() const { return egz; }
+    float getRez() const { return rez; }
+    float getRezv() const { return rezv; }
+    float getRezm() const { return rezm; }
+
+    void setVar(const string& v) { var = v; }
+    void setPav(const string& p) { pav = p; }
+    void setKategorija(const string& kat) { kategorija = kat; }
+    void setPaz(const vector<int>& pazymiai) { paz = pazymiai; }
+    void setEgz(int e) { egz = e; }
+    void setRez(float r) { rez = r; }
+    void setRezv(float rv) { rezv = rv; }
+    void setRezm(float rm) { rezm = rm; }
+
+     //Copy Constructor
+    Studentas(const Studentas& other) {
+        var = other.var;
+        pav = other.pav;
+        kategorija = other.kategorija;
+        paz = other.paz;
+        egz = other.egz;
+        rez = other.rez;
+        rezv = other.rezv;
+        rezm = other.rezm;
     }
-    return static_cast<float>(suma) / pazymiai.size();
-}
 
-
-float mediana(vector<int> pazymiai) {
-    if (pazymiai.empty()) return 0.0f;
-
-    vector<int> sortedPazymiai = pazymiai;
-    sort(sortedPazymiai.begin(), sortedPazymiai.end());
-
-    int n = sortedPazymiai.size();
-    if (n % 2 == 0) {
-        int vid1 = sortedPazymiai[n / 2 - 1];
-        int vid2 = sortedPazymiai[n / 2];
-        return static_cast<float>(vid1 + vid2) / 2.0f;
-    } else {
-        return static_cast<float>(sortedPazymiai[n / 2]);
-    }
-}
-
-
-float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana) {
-    if (naudotiMediana==1){
-        return 0.4 * mediana(studentas.paz) + 0.6 * studentas.egz;
-    }else{
-        return 0.4 * vidurkis(studentas.paz) + 0.6 * studentas.egz;
-    }
-
-}
-
-
-int GetRandomPaz(int minimum, int maximum){
-    int num = minimum + rand() % (maximum - minimum + 1);
-    return num;
-}
-
-
-int kiekEiluciu(string failoPavadinimas){
-    ifstream F(failoPavadinimas);
-    int eilkiekis = 0;
-    char buffer[1000];
-    while (!F.eof()){
-        eilkiekis++;
-        F.getline(buffer, 1000);
-    }
-    F.close();
-    return eilkiekis;
-}
-
-
-int kiekStulp(string failoPavadinimas){
-    int stulp = 0;
-    ifstream F(failoPavadinimas);
-    string line;
-    if (getline(F, line)){
-        stringstream ss(line);
-        string item;
-        while (ss >> item){
-            stulp++;
+    //Copy Assignment Operator
+    Studentas& operator=(const Studentas& other) {
+        if (this != &other) {
+            var = other.var;
+            pav = other.pav;
+            kategorija = other.kategorija;
+            paz = other.paz;
+            egz = other.egz;
+            rez = other.rez;
+            rezv = other.rezv;
+            rezm = other.rezm;
         }
+        return *this;
     }
-    F.close();
-    return stulp;
-}
 
 
-void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai){
-    ifstream failas(failoPavadinimas);
-    if (!failas.is_open()){
-        cout << "Nepavyko atidaryti failo!" << endl;
-        return;
+    //Isvesties operatorius
+    friend  std::ostream& operator<<(std::ostream& os, const Studentas& student) {
+
+        os << std::left << std::setw(20) << student.getVar() << std::left << std::setw(20) << student.getPav();
+        os << std::left << std::setw(20) << student.getRezv()<<std::left << std::setw(20) << student.getRezm();
+
+        return os;
     }
-    string pirmojiEilute;
-    getline(failas, pirmojiEilute);
 
-    int stulp=kiekStulp(failoPavadinimas);
-    int eil=kiekEiluciu(failoPavadinimas);
+    //Ivesties operatorius
+    friend std::istream& operator>>(std::istream& is, Studentas& student) {
 
-    for (int i=0; i<eil-1; i++){
-        Studentas studentas;
-        failas >> studentas.var >> studentas.pav;
-        int pazymys;
+        string v, p;
+        cout<<"Iveskite varda ir pavarde: ";
+        is >> v >> p;
+        student.setVar(v);
+        student.setPav(p);
 
-        for (int i = 0; i < stulp-3; i++){
-            failas >> pazymys;
-            if (pazymys>0 && pazymys<11) {
-                studentas.paz.push_back(pazymys);
-            }else{
-                cout<<"Pazymys blogai ivestas. Jis buvo praleistas"<<endl;
+        vector<int> pazymiai;
+
+        bool generuotiPaz;
+            while(true){
+            try{
+                cout << "Sugeneruoti pazymius atsitiktinai(0 - NE, 1 - TAIP):";
+                is >> generuotiPaz;
+
+                if(is.fail() || (generuotiPaz != 0 && generuotiPaz != 1)){
+                    throw invalid_argument("Nevalidus pasirinkimas. Prasome ivesti 0 arba 1.");
+                }else{
+                    break;
+                }
+            }catch (invalid_argument e){
+                cerr << e.what() << endl;
+                is.clear();
+                is.ignore(numeric_limits<streamsize>::max(), '\n');
             }
         }
 
-        failas >> studentas.egz;
-        studentai.push_back(studentas);
+                if (generuotiPaz==0){
+                     cout << "Iveskite studento namu darbu rezultatus (baigti su -1): ";
+                     while (true) {
+                        try{
+                            int pazymys;
+                            is >> pazymys;
+
+                            if (is.fail() || pazymys<-1 ||pazymys>10) {
+                                throw invalid_argument( "Nevalidus pazymys. Prasome ivesti pazymius : ");
+                            } else if (pazymys == -1) {
+                                break;
+                            } else {
+                                pazymiai.push_back(pazymys);
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
+                        }
+                        student.setPaz(pazymiai);
+                    }
+
+
+                    while (true) {
+                        try{
+                            int eg;
+                            cout << "Iveskite studento egzamino rezultata: ";
+                            is >> eg;
+                            student.setEgz(eg);
+
+                            if (is.fail() || eg<1 ||eg>10) {
+                                throw invalid_argument( "Nevalidus rezultatas. Prasome ivesti pazymi.");
+                            } else {
+                                break;
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
+                        }
+                    }
+
+
+
+                }else{
+                    srand(time(NULL));
+                    int ndkiekis;
+                    int pazymys;
+                    while (true) {
+                        try{
+                            cout << "Kiek norite pazymiu? ";
+                            is >> ndkiekis;
+
+                            if (is.fail() || (ndkiekis<0)) {
+                                throw invalid_argument( "Nevalidus pasirinkimas. Prasome ivesti pazymiu kieki.");
+                            } else {
+                                break;
+                            }
+                        }catch (invalid_argument e){
+                            cerr << e.what() << endl;
+                            is.clear();
+                            is.ignore(numeric_limits<streamsize>::max(), '\n');
+                        }
+                    }
+
+                    cout << "Atsitiktinai sugeneruoti studento namu darbu pazymiai:" ;
+                    for(int k = 0; k < ndkiekis; k++) {
+                        pazymys = 1 + rand() % 10;
+                        pazymiai.push_back(pazymys);
+                        cout << pazymys << " ";
+                    }
+                    student.setPaz(pazymiai);
+                    cout << endl;
+                    student.setEgz(1 + rand() % 10);
+                    cout << "Egzaminas: " << student.getEgz() <<endl;
+
+                }
+
+        return is;
     }
-    failas.close();
-}
+};
 
+float vidurkis(vector<int> pazymiai);
+float mediana(vector<int> pazymiai);
+float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana);
+bool palygStudentByKat(const Studentas& a, const Studentas& b);
+bool palygStudentByVar(const Studentas& a, const Studentas& b);
+bool palygStudentByVar(const Studentas& a, const Studentas& b);
+void spausdintiDuomenis(vector<Studentas> studentai);
+bool maziau5(const Studentas& student);
+bool daugiau5(const Studentas& student);
+void rusiuotiDuomenisIsGeneruotoFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg);
+void rusiuotiDuomenisIsEgzistFailo(string failoPavadinimas, int sKiekis, duration<double> diff, int t, double &suma,string rusiuoti,double &sumaNusk,double &sumaRus,double &sumaKiet,double &sumaVarg, int strategija);
+void nuskaitytiDuomenisIsFailo(string failoPavadinimas, vector<Studentas>& studentai);
+int kiekEiluciu(string failoPavadinimas);
+int kiekStulp(string failoPavadinimas);
+int GetRandomPaz(int minimum, int maximum);
+bool checkFile(string file_name);
 
-bool palygStudentByVar(Studentas a, Studentas b) {
-    return a.var < b.var;
-}
-
-
-void spausdintiDuomenis(vector<Studentas> studentai, bool naudotiMediana, bool naudotiFaila){
-    printf("\nStudentu duomenys:\n");
-    printf("---------------------------------------------------------------------------------------\n");
-
-    sort(studentai.begin(), studentai.end(),palygStudentByVar);
-
-    if (naudotiFaila==0){
-        printf("%-25s%-25s%-20s%-20s\n", "Vardas","Pavarde","Galutinis(Vid.)","Galutinis(Med.)");
-        printf("---------------------------------------------------------------------------------------\n");
-        for (const Studentas studentas : studentai) {
-            printf("%-25s%-25s%-20.2f%-20.2f\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rezv,studentas.rezm);
-        }
-    }else if (naudotiMediana==1){
-        printf("%-25s%-25s%-20s\n", "Vardas","Pavarde","Galutinis(Med.)");
-        printf("--------------------------------------------------------------------------------------\n");
-        for (const Studentas studentas : studentai) {
-            printf("%-25s%-25s%-20.2f\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rez);
-        }
-    }else{
-        printf("%-25s%-25s%-20s\n", "Vardas","Pavarde","Galutinis(Vid.)");
-        printf("--------------------------------------------------------------------------------------\n");
-        for (const Studentas studentas : studentai) {
-            printf("%-25s%-25s%-20.2f\n", studentas.var.c_str(), studentas.pav.c_str(), studentas.rez);
-        }
-    }
-    printf("----------------------------------------------------------------------------------------\n");
-
-}
 
 #endif // MYLIB_H_INCLUDED
