@@ -39,7 +39,14 @@ using std::back_inserter;
 
 using namespace std::chrono;
 
-class Studentas {
+
+class Zmogus {
+public:
+    virtual ~Zmogus() = default;
+
+};
+
+class Studentas : public Zmogus{
 
 private:
     string var, pav, kategorija;
@@ -51,8 +58,6 @@ public:
     Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
         : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
-    //Destructor
-    ~Studentas() {}
 
     string getVar() const { return var; }
     string getPav() const { return pav; }
@@ -71,6 +76,9 @@ public:
     void setRez(float r) { rez = r; }
     void setRezv(float rv) { rezv = rv; }
     void setRezm(float rm) { rezm = rm; }
+
+    //Destructor
+    ~Studentas() {}
 
      //Copy Constructor
     Studentas(const Studentas& other) {
