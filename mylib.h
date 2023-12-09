@@ -41,7 +41,17 @@ using namespace std::chrono;
 
 
 class Zmogus {
+
+private:
+    string var, pav;
 public:
+
+    virtual string getVar() const { return var; }
+    virtual string getPav() const { return pav; }
+
+    virtual void setVar(const string& v) { var = v; }
+    virtual void setPav(const string& p) { pav = p; }
+
     virtual ~Zmogus() = default;
 
 };
