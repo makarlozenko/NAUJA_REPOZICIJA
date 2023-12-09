@@ -231,7 +231,7 @@ int main() {
             cout << "Iveskite " << i + 1 << " studento duomenis:" << endl;
 
             Studentas naujasStudentas;
-            //Zmogus zmogus;
+            //Zmogus zmogus();
             cin >> naujasStudentas;
 
             naujasStudentas.setRezv(skaiciuotiGalutiniBala(naujasStudentas, 0));

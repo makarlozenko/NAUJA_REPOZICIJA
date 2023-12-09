@@ -48,11 +48,11 @@ public:
 
     Zmogus(const string& v, const string& p):var(v),pav(p) {}
 
-    virtual string getVar() const { return var; }
-    virtual string getPav() const { return pav; }
+    virtual string getVar() const =0;
+    virtual string getPav() const =0;
 
-    virtual void setVar(const string& v) { var = v; }
-    virtual void setPav(const string& p) { pav = p; }
+    virtual void setVar(const string& v) =0;
+    virtual void setPav(const string& p) =0;
 
     virtual ~Zmogus() {};
 
@@ -70,6 +70,8 @@ public:
     Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
         : Zmogus(v, p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
+    string getVar() const { return var; }
+    string getPav() const { return pav; }
     string getKategorija() const { return kategorija; }
     vector<int> getPaz() const { return paz; }
     int getEgz() const { return egz; }
@@ -77,6 +79,8 @@ public:
     float getRezv() const { return rezv; }
     float getRezm() const { return rezm; }
 
+    void setVar(const string& v) { var = v; }
+    void setPav(const string& p) { pav = p; }
     void setKategorija(const string& kat) { kategorija = kat; }
     void setPaz(const vector<int>& pazymiai) { paz = pazymiai; }
     void setEgz(int e) { egz = e; }
