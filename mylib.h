@@ -39,7 +39,7 @@ using std::back_inserter;
 
 using namespace std::chrono;
 
-
+// Abstract class
 class Zmogus {
 
 protected:
@@ -48,13 +48,13 @@ public:
 
     Zmogus(const string& v, const string& p):var(v),pav(p) {}
 
-    string getVar() const { return var; }
-    string getPav() const { return pav; }
+    virtual string getVar() const { return var; }
+    virtual string getPav() const { return pav; }
 
-    void setVar(const string& v) { var = v; }
-    void setPav(const string& p) { pav = p; }
+    virtual void setVar(const string& v) { var = v; }
+    virtual void setPav(const string& p) { pav = p; }
 
-    virtual ~Zmogus() = default;
+    virtual ~Zmogus() {};
 
 };
 
