@@ -42,15 +42,17 @@ using namespace std::chrono;
 
 class Zmogus {
 
-private:
+protected:
     string var, pav;
 public:
 
-    virtual string getVar() const { return var; }
-    virtual string getPav() const { return pav; }
+    Zmogus(const string& v, const string& p):var(v),pav(p) {}
 
-    virtual void setVar(const string& v) { var = v; }
-    virtual void setPav(const string& p) { pav = p; }
+    string getVar() const { return var; }
+    string getPav() const { return pav; }
+
+    void setVar(const string& v) { var = v; }
+    void setPav(const string& p) { pav = p; }
 
     virtual ~Zmogus() = default;
 
@@ -59,18 +61,15 @@ public:
 class Studentas : public Zmogus{
 
 private:
-    string var, pav, kategorija;
+    string kategorija;
     vector<int> paz;
     int egz;
     float rez, rezv, rezm;
 public:
-    Studentas() : egz(0), rez(0), rezv(0), rezm(0) {}
+    Studentas() : Zmogus("null","null"), egz(0), rez(0), rezv(0), rezm(0) {}
     Studentas(const string& v, const string& p, const string& kat, const vector<int>& pazymiai, int e)
-        : var(v), pav(p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
+        : Zmogus(v, p), kategorija(kat), paz(pazymiai), egz(e), rez(0), rezv(0), rezm(0) {}
 
-
-    string getVar() const { return var; }
-    string getPav() const { return pav; }
     string getKategorija() const { return kategorija; }
     vector<int> getPaz() const { return paz; }
     int getEgz() const { return egz; }
@@ -78,8 +77,6 @@ public:
     float getRezv() const { return rezv; }
     float getRezm() const { return rezm; }
 
-    void setVar(const string& v) { var = v; }
-    void setPav(const string& p) { pav = p; }
     void setKategorija(const string& kat) { kategorija = kat; }
     void setPaz(const vector<int>& pazymiai) { paz = pazymiai; }
     void setEgz(int e) { egz = e; }
@@ -91,7 +88,7 @@ public:
     ~Studentas() {}
 
      //Copy Constructor
-    Studentas(const Studentas& other) {
+    Studentas(const Studentas& other) : Zmogus(other) {
         var = other.var;
         pav = other.pav;
         kategorija = other.kategorija;
@@ -105,6 +102,7 @@ public:
     //Copy Assignment Operator
     Studentas& operator=(const Studentas& other) {
         if (this != &other) {
+            Zmogus::operator=(other);
             var = other.var;
             pav = other.pav;
             kategorija = other.kategorija;
