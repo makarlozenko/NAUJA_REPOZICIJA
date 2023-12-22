@@ -88,6 +88,42 @@ public:
     void setRezv(float rv) { rezv = rv; }
     void setRezm(float rm) { rezm = rm; }
 
+    float vidurkis(vector<int> pazymiai) {
+        if (pazymiai.empty()) return 0.0f;
+        int suma = 0;
+        for (int pazymys : pazymiai) {
+            suma += pazymys;
+        }
+        return static_cast<float>(suma) / pazymiai.size();
+    }
+
+    float mediana(vector<int> pazymiai) {
+        if (pazymiai.empty()) return 0.0f;
+
+        vector<int> sortedPazymiai = pazymiai;
+        sort(sortedPazymiai.begin(), sortedPazymiai.end());
+
+        int n = sortedPazymiai.size();
+        if (n % 2 == 0) {
+            int vid1 = sortedPazymiai[n / 2 - 1];
+            int vid2 = sortedPazymiai[n / 2];
+            return static_cast<float>(vid1 + vid2) / 2.0f;
+        } else {
+            return static_cast<float>(sortedPazymiai[n / 2]);
+        }
+    }
+
+
+    float skaiciuotiGalutiniBala(Studentas studentas, bool naudotiMediana) {
+        if (naudotiMediana==1){
+            return 0.4 * mediana(studentas.getPaz()) + 0.6 * studentas.getEgz();
+        }else{
+            return 0.4 * vidurkis(studentas.getPaz()) + 0.6 * studentas.getEgz();
+        }
+
+    }
+
+
     //Destructor
     ~Studentas() {}
 
@@ -235,7 +271,8 @@ public:
                     cout << "Egzaminas: " << student.getEgz() <<endl;
 
                 }
-
+        student.setRezv(student.skaiciuotiGalutiniBala(student, 0));
+        student.setRezm(student.skaiciuotiGalutiniBala(student, 1));
         return is;
     }
 };

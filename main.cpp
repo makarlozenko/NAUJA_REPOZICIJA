@@ -2,6 +2,11 @@
 
 int main() {
 
+    Studentas a;
+    cin>>a;
+    Studentas b(a);
+    cout<<a<<endl<<b<<endl;
+
     bool naudotiFaila;
     while(true){
         try{
@@ -231,11 +236,10 @@ int main() {
             cout << "Iveskite " << i + 1 << " studento duomenis:" << endl;
 
             Studentas naujasStudentas;
-            //Zmogus zmogus();
             cin >> naujasStudentas;
 
-            naujasStudentas.setRezv(skaiciuotiGalutiniBala(naujasStudentas, 0));
-            naujasStudentas.setRezm(skaiciuotiGalutiniBala(naujasStudentas, 1));
+            //naujasStudentas.setRezv(skaiciuotiGalutiniBala(naujasStudentas, 0));
+            //naujasStudentas.setRezm(skaiciuotiGalutiniBala(naujasStudentas, 1));
             studentai[i] = naujasStudentas;
         }
 
@@ -243,5 +247,8 @@ int main() {
 
     return 0;
     }
+
+    //Zmogus zmogus();
+
 }
 
