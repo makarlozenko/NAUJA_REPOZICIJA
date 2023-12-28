@@ -1,7 +1,7 @@
 #ifndef MYLIB_H_INCLUDED
 #define MYLIB_H_INCLUDED
 
-
+#include "pch.h"
 #include <iostream>
 #include <string>
 #include <vector>
@@ -12,7 +12,7 @@
 #include <sstream>
 #include <iomanip>
 #include <chrono>
-
+#include <gtest/gtest.h>
 
 
 using std::cout;
@@ -309,3 +309,7 @@ bool checkFile(string file_name);
 
 #endif // MYLIB_H_INCLUDED
 #pragma once
+
+
+
+

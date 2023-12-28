@@ -1,5 +1,6 @@
 #include "mylib.h"
 
+
 float vidurkis(vector<int> pazymiai) {
     if (pazymiai.empty()) return 0.0f;
     int suma = 0;
@@ -768,3 +769,4 @@ bool checkFile(string file_name) {
 }
 
 
+#include "pch.h"
