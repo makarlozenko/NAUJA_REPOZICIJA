@@ -206,31 +206,16 @@ Užkomentavus abstrakčios klasės Žmogus objekto kūrimą, programa veikia:
 # V2.0 versija
 
 Buvo sukurta dokumentacija HTML formatu, naudojant Doxygen programa. Buvo realizuoti keli Unit testai (Google Tests). 
+
 ![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/9159481b-1e2a-4387-b922-9f8b6e0175ac)
 
 # Naudojimosi instrukcija
-Paleidus programą, atsiranda juodas langas:
 
-(Toliau kiekvieną įvedimą baigiame su Enter paspaudimu)
-
-1. Spaudžiame 1 - duomenys bus įvedami rankiniu būdu. Spaudžiame 0 - duomenis gausime iš failo.
-   
-   Jei pasirinkome rankiniu būdu:
-   
-   1.1. Spaudžiame 1 - bus skaižiuojamas pažymių vidurkis. Spaudžiame 0 - bus skaižiuojama pažymių mediana.
-   
-   1.2. Įvedame studentų skaičių.
-   
-   1.3. Spaudžiame 1 - kompiuteris generuoja pazymius atsitiktinai. Spaudžiame 0 - duomenys bus įvedami rankiniu būdu.
-
-   1.4. Pasirinkus 1, įvedame studentų vardus ir pavardes bei pasririnkom, kiek norime sugeneruoti pažymių - galiusiai gausime norimus rezultatus. Pasirinkus 0, įvedame studentų vardus, pavardes, pažymius per 
-   Space paspaudimą, baigiant įvedimą su -1 ir Enter paspaudimu, bei egzamino rezultatą - galiusiai gausime norimus rezultatus.
-
-   Jei pasirinkome duomenis iš failo:
-
-   2.1. 
-
-
+1.CMake programos įdiegimas. Versija turi būti neankstesnė negu 3.28. 
+2.Parsisiunčiame reikalingus failus iš GitHub.(mylib.cpp ; main.cpp; RUNMEE; CMakeLists; mylib.h) Visus cpp sudedame į ,,src''aplankala,o Header tipo failus sudėti į ,,Include" aplankala. Atskirai prie folderių įsidedame ,,RUNMEE'' ir CMakeLists. 
+3.Naudotojas turi paleisti failą "RUNMEE.bat". Jame jau yra paruoštos komandos. 
+4.Aplankale "Debug" dabar galima rasti failą su plėtiniu .exe. Jį reikia paleisti, tam, kad galima būtų naudotis programa.
+5.Toliau atsidarys juodas langas su tolimesne instrukcija. Kiekvieną ivedimą reikia baigti su Enter paspaudimu.
 
 
 
