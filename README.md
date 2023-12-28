@@ -203,7 +203,12 @@ Užkomentavus abstrakčios klasės Žmogus objekto kūrimą, programa veikia:
 ![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/34fe99e4-70ce-4e30-b308-7a1193309b27)
 
 
-# Instrukcija
+# V2.0 versija
+
+Buvo sukurta dokumentacija HTML formatu, naudojant Doxygen programa. Buvo realizuoti keli Unit testai (Google Tests). 
+![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/9159481b-1e2a-4387-b922-9f8b6e0175ac)
+
+# Naudojimosi instrukcija
 Paleidus programą, atsiranda juodas langas:
 
 (Toliau kiekvieną įvedimą baigiame su Enter paspaudimu)
