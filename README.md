@@ -212,9 +212,13 @@ Buvo sukurta dokumentacija HTML formatu, naudojant Doxygen programa. Buvo realiz
 # Naudojimosi instrukcija
 
 1.CMake programos įdiegimas. Versija turi būti neankstesnė negu 3.28. 
+
 2.Parsisiunčiame reikalingus failus iš GitHub.(mylib.cpp ; main.cpp; RUNMEE; CMakeLists; mylib.h) Visus cpp sudedame į ,,src''aplankala,o Header tipo failus sudėti į ,,Include" aplankala. Atskirai prie folderių įsidedame ,,RUNMEE'' ir CMakeLists. 
+
 3.Naudotojas turi paleisti failą "RUNMEE.bat". Jame jau yra paruoštos komandos. 
+
 4.Aplankale "Debug" dabar galima rasti failą su plėtiniu .exe. Jį reikia paleisti, tam, kad galima būtų naudotis programa.
+
 5.Toliau atsidarys juodas langas su tolimesne instrukcija. Kiekvieną ivedimą reikia baigti su Enter paspaudimu.
 
 
