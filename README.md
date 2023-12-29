@@ -209,17 +209,22 @@ Buvo sukurta dokumentacija HTML formatu, naudojant Doxygen programa. Buvo realiz
 
 ![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/9159481b-1e2a-4387-b922-9f8b6e0175ac)
 
+# V3.0 versija
+
+Buvo sukurtas programos diegimo failas.
+
+![image](https://github.com/makarlozenko/NAUJA_REPOZICIJA/assets/145557353/171cea8f-44af-4e25-a546-98ec74bd1657)
+
+
 # Naudojimosi instrukcija
 
-1.CMake programos įdiegimas. Versija turi būti neankstesnė negu 3.28. 
+1.Parsisiunčiame failą ProgramInstallSetup.msi iš GitHub.
 
-2.Parsisiunčiame reikalingus failus iš GitHub.(mylib.cpp ; main.cpp; RUNMEE; CMakeLists; mylib.h) Visus cpp sudedame į ,,src''aplankala,o Header tipo failus sudėti į ,,Include" aplankala. Atskirai prie folderių įsidedame ,,RUNMEE'' ir CMakeLists. 
+2.Naudotojas turi paleisti failą ProgramInstallSetup.msi ir atlikti tam tikras komandas. 
 
-3.Naudotojas turi paleisti failą "RUNMEE.bat". Jame jau yra paruoštos komandos. 
+3.Rasti jau įdiegtą programą naudotoju pasirintame aplankale. Ir ją paleisti.
 
-4.Aplankale "Debug" dabar galima rasti failą su plėtiniu .exe. Jį reikia paleisti, tam, kad galima būtų naudotis programa.
-
-5.Toliau atsidarys juodas langas su tolimesne instrukcija. Kiekvieną ivedimą reikia baigti su Enter paspaudimu.
+4.Toliau atsidarys juodas langas su tolimesne instrukcija. Kiekvieną ivedimą reikia baigti su Enter paspaudimu.
 
 
 
